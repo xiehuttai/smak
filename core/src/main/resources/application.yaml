@@ -1,0 +1,10 @@
+smak:
+  framework:
+    jdbc:
+      driver: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.185.3:3306/smak?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: sanmo
+    base-package:
+    jsp-path:
+    asset-path:
