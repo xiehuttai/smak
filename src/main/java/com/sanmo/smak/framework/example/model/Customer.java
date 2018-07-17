@@ -1,8 +1,5 @@
 package com.sanmo.smak.framework.example.model;
 
-import lombok.ToString;
-
-@ToString
 public class Customer {
 
     private long id;
@@ -11,6 +8,15 @@ public class Customer {
     private String telephone;
     private String email;
     private String remark;
+
+    public String toString() {
+        return this.getId()+","+
+        this.getName()+","+
+        this.getContact()+","+
+        this.getTelephone()+","+
+        this.getEmail()+","+
+        this.getRemark();
+    }
 
     public long getId() {
         return id;
@@ -59,4 +65,6 @@ public class Customer {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+
 }

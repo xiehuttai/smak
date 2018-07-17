@@ -1,5 +1,6 @@
 package com.sanmo.smak.framework.example.controller;
 
+import com.sanmo.smak.framework.example.dao.util.CastUtil;
 import com.sanmo.smak.framework.example.model.Customer;
 import com.sanmo.smak.framework.example.service.CustomerService;
 import org.slf4j.Logger;
@@ -12,25 +13,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
-@WebServlet("/customer_create")
-public class CustomerCreateServlet extends HttpServlet {
+@WebServlet("/customer_edit")
+public class CustomerEditServlet extends HttpServlet {
 
-    private static final Logger logger= LoggerFactory.getLogger(CustomerCreateServlet.class);
+    private static final Logger logger= LoggerFactory.getLogger(CustomerEditServlet.class);
 
     private CustomerService customerService=new CustomerService();
 
-    /* 进入创建界面 */
+    /* 进入编辑界面 */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.getRequestDispatcher("/WEB-INF/view/customer_create.jsp").forward(req,resp);
+        String queryString = req.getQueryString();
+        Map<String, String> stringStringMap = CastUtil.queryStringToMap(queryString);
+        String id = stringStringMap.get("id");
+        Customer customer = customerService.getCustomer(CastUtil.stringToLong(id));
+        req.setAttribute("customer",customer);
+        req.getRequestDispatcher("/WEB-INF/view/customer_edit.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setHeader("Content-Type", "text/html;charset=UTF-8");
+        String queryString = req.getQueryString();
+        long id = CastUtil.stringToLong(CastUtil.queryStringToMap(queryString).get("id"));
         HashMap<String, Object> map = new HashMap<>();
         String name = req.getParameter("name");
         String contact = req.getParameter("contact");
@@ -43,9 +51,8 @@ public class CustomerCreateServlet extends HttpServlet {
         map.put("email",email);
         map.put("remark",remark);
         logger.info("request info is {}",map);
-        customerService.createCustomer(map);
-        logger.info(" req.getContextPath() :{}",req.getContextPath());
-        resp.sendRedirect(req.getContextPath()+"/customer");
+        customerService.updateCustomer(id,map);
+        resp.sendRedirect(req.getContextPath()+"/customer_show?id="+id);
     }
 
 }

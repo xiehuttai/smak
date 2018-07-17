@@ -3,10 +3,15 @@ package com.sanmo.smak.framework.example.dao;
 import com.sanmo.smak.framework.example.dao.util.PropertiesUtil;
 import com.sanmo.smak.framework.example.model.Customer;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,8 +30,8 @@ public class CustomerDbHelper {
 
     /* commons-dbutils实现自动封装查询结果为java对象 */
     private static final QueryRunner QUERY_RUNNER;
-    /* 使用ThreadLocal隔离线程之间的连接 */
-    private static final ThreadLocal<Connection> CONNECTION_HOLDER;
+    /* 数据库连接池 */
+    private static final BasicDataSource DATA_SOURCE;
 
     static {
 
@@ -35,36 +40,49 @@ public class CustomerDbHelper {
         URL= properties.getProperty("jdbc.url");
         USERNAME= properties.getProperty("jdbc.username");
         PASSWORD= properties.getProperty("jdbc.password");
-        QUERY_RUNNER= new QueryRunner();
-        CONNECTION_HOLDER=new ThreadLocal<Connection>();
 
-        try {
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        QUERY_RUNNER= new QueryRunner();
+
+        DATA_SOURCE= new BasicDataSource();
+        DATA_SOURCE.setDriverClassName(DRIVER);
+        DATA_SOURCE.setUrl(URL);
+        DATA_SOURCE.setUsername(USERNAME);
+        DATA_SOURCE.setPassword(PASSWORD);
+
     }
 
     public static <T> List<T> queryEntityList(Class<T> entityClass, Object... params){
         List<T> entityList = new ArrayList<>();
         String sql = "select * from "+ getTableName(entityClass);
+        Connection connection = getConnection();
         try {
-            entityList= QUERY_RUNNER.query(getConnection(),sql,new BeanListHandler<T>(entityClass),params);
+            entityList= QUERY_RUNNER.query(connection,sql,new BeanListHandler<T>(entityClass),params);
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            closeConnection();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return entityList;
     }
 
     public static<T> T getEntity(Class<T> entityClass,long id){
         String sql="select * from "+ getTableName(entityClass)+ " where id=?";
+        Connection connection = getConnection();
         T query= null;
         try {
-            query = QUERY_RUNNER.query(getConnection(), sql, new BeanHandler<T>(entityClass),id);
+            query = QUERY_RUNNER.query(connection, sql, new BeanHandler<T>(entityClass),id);
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return query;
     }
@@ -77,7 +95,11 @@ public class CustomerDbHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            closeConnection();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return rows;
     }
@@ -126,29 +148,29 @@ public class CustomerDbHelper {
     }
 
     public static Connection getConnection() {
-        Connection connection = CONNECTION_HOLDER.get();
-        if (connection ==null) {
-            try {
-              connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }finally {
-                CONNECTION_HOLDER.set(connection);
-            }
+        Connection connection = null;
+        try {
+            connection = DATA_SOURCE.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+//            CONNECTION_HOLDER.set(connection);
         }
         return connection;
     }
 
-    public static void closeConnection(){
-        Connection connection = CONNECTION_HOLDER.get();
-        if (connection!=null){
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }finally {
-                CONNECTION_HOLDER.remove();
+
+    public static void executeSqlFile(String sqlFile){
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(sqlFile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        try {
+            String sql;
+            while ((sql=br.readLine())!=null){
+                executeUpdate(sql);
             }
+        }catch (IOException e){
+            e.printStackTrace();
         }
+
     }
 }
