@@ -10,6 +10,7 @@
     <modules>
         <module>example</module>
         <module>core</module>
+        <module>example-samk</module>
     </modules>
 
     <packaging>pom</packaging>

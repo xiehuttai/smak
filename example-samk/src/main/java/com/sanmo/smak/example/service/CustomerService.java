@@ -7,6 +7,7 @@ import com.sanmo.smak.example.model.Customer;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class CustomerService {
 
     private CustomerDao customerDao= new CustomerDao();

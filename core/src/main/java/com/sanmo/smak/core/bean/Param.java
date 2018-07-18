@@ -16,4 +16,7 @@ public class Param {
         return CastUtil.getLong(paramMap.get(name));
     }
 
+    public Map<String, Object> getParamMap() {
+        return paramMap;
+    }
 }

@@ -3,6 +3,8 @@ package com.sanmo.smak.helper.clazz;
 import com.sanmo.smak.annotation.Controller;
 import com.sanmo.smak.annotation.Service;
 import com.sanmo.smak.helper.config.ConfigHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,11 +12,14 @@ import java.util.Set;
 /* 2.1 获取应用路径下的指定bean的clazz */
 public final class ClassHelper {
 
+    private static final Logger logger = LoggerFactory.getLogger(ClassHelper.class);
+
     private static final Set<Class<?>> CLASS_SET;
 
     static {
         String basePackage=ConfigHelper.getBasePath();
         CLASS_SET = ClassUtil.getClassSet(basePackage);
+        logger.info("CLASS_SET : {},{}",CLASS_SET,basePackage);
     }
 
     public static Set<Class<?>> getClassSet(){
