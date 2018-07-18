@@ -1,4 +1,4 @@
-package com.sanmo.smak.config;
+package com.sanmo.smak.helper.config;
 
 import org.apache.commons.lang3.StringUtils;
 

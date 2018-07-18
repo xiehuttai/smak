@@ -14,6 +14,7 @@
 <head>
     <title>创建</title>
 </head>
+
 <body>
     <form action="customer_create" method="post" accept-charset="UTF-8">
 
@@ -24,6 +25,7 @@
         <label>备注：</label> <input name="remark" type="text"><br>
 
         <input type="submit">
+
     </form>
 </body>
 </html>

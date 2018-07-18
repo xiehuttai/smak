@@ -1,4 +1,4 @@
-package com.sanmo.smak.clazz;
+package com.sanmo.smak.helper.clazz;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+
+/* 2 加载clazz的工具类 */
 public class ClassUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
@@ -27,6 +29,17 @@ public class ClassUtil {
         Class<?> cls;
         try {
             cls=Class.forName(className,isInitlized,getClassLoader());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return cls;
+    }
+
+    public static Class<?> loadClass(String className ){
+        Class<?> cls;
+        try {
+            cls=Class.forName(className,true,getClassLoader());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -63,7 +76,6 @@ public class ClassUtil {
                             }
                         }
                     }
-
                 }
             }
         } catch (IOException e) {

@@ -1,5 +1,7 @@
-package com.sanmo.smak.config;
+package com.sanmo.smak.helper.config;
 
+
+/* 1 config */
 public interface ConfigConstant {
 
     String CONFIG_FILE="application.properties";
