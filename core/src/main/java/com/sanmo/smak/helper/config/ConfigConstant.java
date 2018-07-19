@@ -4,7 +4,7 @@ package com.sanmo.smak.helper.config;
 /* 1 config */
 public interface ConfigConstant {
 
-    String CONFIG_FILE= "application-example.properties";
+    String CONFIG_FILE= "application.properties";
 
     String JDBC_DRIVER="smak.framework.jdbc.driver";
     String JDBC_URL= "smak.framework.jdbc.url";

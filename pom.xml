@@ -8,9 +8,8 @@
     <artifactId>framework</artifactId>
     <version>1.0</version>
     <modules>
-        <module>example</module>
         <module>core</module>
-        <module>example-samk</module>
+        <module>example</module>
     </modules>
 
     <packaging>pom</packaging>

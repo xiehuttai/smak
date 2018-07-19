@@ -39,7 +39,6 @@ public class ClassUtil {
     public static Class<?> loadClass(String className ){
         Class<?> cls;
         try {
-            logger.info("className : {} ",className);
             cls=Class.forName(className,true,getClassLoader());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -54,10 +53,8 @@ public class ClassUtil {
             Enumeration<URL> urls = getClassLoader().getResources(packageName.replace(".", "/"));
             while (urls.hasMoreElements()){
                 URL url = urls.nextElement();
-                logger.info("url is : {}",url);
                 if (url!=null){
                     String protocol = url.getProtocol();
-                    logger.info("protocol is ：{}",protocol);
                     if (protocol.equals("file")){
                         String packagePath = url.getPath().replaceAll("%20", " ");
                         addClass(classes,packagePath,packageName);
@@ -83,8 +80,7 @@ public class ClassUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return classes;
     }
 
     private static void doAddClass(Set<Class<?>> classes, String className) {
@@ -94,22 +90,16 @@ public class ClassUtil {
 
     private static void addClass(Set<Class<?>> classes, String packagePath, String packageName) {
 
-        logger.info("packagePath {}, packageName {}",packagePath, packageName);
-
         File[] files = new File(packagePath).listFiles(
                 (f) -> f.isFile() && f.getName().endsWith(".class") || f.isDirectory() );
-
-        logger.info("files : {}",files);
 
         for (File f: files) {
             String fileName = f.getName();
             if(f.isFile()){
                 String className=fileName.substring(0,fileName.lastIndexOf("."));
-                logger.info("className : {}",className);
                 if (StringUtils.isNotEmpty(packageName)){
                     className=packageName+"."+className;
                 }
-                logger.info("className : {}",className);
                 doAddClass(classes,className);
             }else{
                 String subPackagePath=fileName;

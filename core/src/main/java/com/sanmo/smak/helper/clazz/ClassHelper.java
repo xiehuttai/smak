@@ -19,7 +19,8 @@ public final class ClassHelper {
     static {
         String basePackage=ConfigHelper.getBasePath();
         CLASS_SET = ClassUtil.getClassSet(basePackage);
-        logger.info("CLASS_SET : {},{}",CLASS_SET,basePackage);
+        logger.info("basePackage:{}",basePackage);
+        logger.info("classSet:{},",CLASS_SET);
     }
 
     public static Set<Class<?>> getClassSet(){

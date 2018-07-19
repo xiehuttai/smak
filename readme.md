@@ -1,6 +1,6 @@
 #### 1. introduce
 
-a java web framework.
+a java web framework. 
 
 #### 2. version
 
@@ -8,10 +8,9 @@ a java web framework.
  
  base curd . 
  
-- db jdbc、dbutils、dbcp2
-- view jsp
+- ioc
+- mvc
 
 ##### 2.2 to-do
 
-- connection pool.
-- page view.
+- aop

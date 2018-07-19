@@ -34,4 +34,10 @@ public class Request {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
+    @Override
+    public String toString() {
+        return this.getRequestPath()+","+
+                this.getRequestMethod();
+    }
 }

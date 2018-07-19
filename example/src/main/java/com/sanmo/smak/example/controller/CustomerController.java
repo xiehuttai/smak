@@ -20,7 +20,7 @@ public class CustomerController {
     @Action("get:/customer")
     public View toCustomerList(Param param){
         List<Customer> customerList = customerService.getCustomerList();
-        return new View("customer.jsp").addModel("customer",customerList);
+        return new View("customer.jsp").addModel("customers",customerList);
     }
 
     @Action("get:/customer_create")
@@ -57,12 +57,11 @@ public class CustomerController {
         return new View("/customer_show?id="+id);
     }
 
+    @Action("get:/customer_show")
     public View toCustomerShow(Param param){
         long id = param.getLong("id");
         Customer customer = customerService.getCustomer(id);
         return new View("customer_show.jsp").addModel("customer",customer);
     }
-
-
 
 }

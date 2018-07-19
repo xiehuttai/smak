@@ -1,6 +1,6 @@
 package com.sanmo.smak.core;
 
-import com.sanmo.smak.annotation.Controller;
+import com.sanmo.smak.common.CastUtil;
 import com.sanmo.smak.common.CodecUtil;
 import com.sanmo.smak.common.JsonUtil;
 import com.sanmo.smak.common.StreamUtil;
@@ -12,8 +12,9 @@ import com.sanmo.smak.helper.config.ConfigHelper;
 import com.sanmo.smak.helper.controller.ControllerHelper;
 import com.sanmo.smak.helper.controller.bean.Handler;
 import com.sanmo.smak.helper.reflect.ReflectionUtil;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +31,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/*",loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
 
+    private static final Logger logger= LoggerFactory.getLogger(DispatcherServlet.class);
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -50,6 +52,7 @@ public class DispatcherServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = req.getMethod();
         String path = req.getPathInfo();
+        logger.debug("request:{},{}",method,path);
         Handler handler = ControllerHelper.getHandler(method, path);
 
         if (handler!=null){
@@ -61,6 +64,8 @@ public class DispatcherServlet extends HttpServlet {
             Object result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
             /*解析结果*/
             parseResult(req,resp,result);
+        }else {
+            req.getRequestDispatcher(ConfigHelper.getJspPath()+"customer.jsp").forward(req,resp);
         }
     }
 
@@ -73,18 +78,21 @@ public class DispatcherServlet extends HttpServlet {
             String value = req.getParameter(element);
             params.put(element,value);
         }
-        String url = CodecUtil.decodeUrl(StreamUtil.getString(req.getInputStream()));
-        if (StringUtils.isNotEmpty(url)){
-            String[] urlParams = StringUtils.split(url, "&");
-            if (ArrayUtils.isNotEmpty(urlParams))
-                for (String param: urlParams){
-                    String[] paramkv = StringUtils.split(param, "=");
-                    if (ArrayUtils.isNotEmpty(paramkv)&& paramkv.length==2)
-                        params.put(paramkv[0],paramkv[1]);
-                }
+        /*解析url中的参数*/
+        String queryString = req.getQueryString();
+        if (StringUtils.isNotEmpty(queryString)){
+            queryString=CodecUtil.decodeUrl(queryString);
+            CastUtil.parseString(params,queryString);
         }
+        /*解析请求体中的参数*/
+        String body = CodecUtil.decodeUrl(StreamUtil.getString(req.getInputStream()));
+        if (StringUtils.isNotEmpty(body)){
+            CastUtil.parseString(params,body);
+        }
+        logger.debug("params:{}",params);
         return new Param(params);
     }
+
 
     /*处理响应结果*/
     public void parseResult(HttpServletRequest req,HttpServletResponse resp,Object result) throws IOException, ServletException {
@@ -98,7 +106,9 @@ public class DispatcherServlet extends HttpServlet {
                 for (Map.Entry<String ,Object> entry: model.entrySet()){
                     req.setAttribute(entry.getKey(),entry.getValue());
                 }
-                req.getRequestDispatcher(ConfigHelper.getJspPath()+path).forward(req,resp);
+                String forwardPath = ConfigHelper.getJspPath() + path;
+                logger.info("forwardPath:{}",forwardPath);
+                req.getRequestDispatcher(forwardPath).forward(req,resp);
             }
         }else if (result instanceof Data){
             Data data = (Data) result;
