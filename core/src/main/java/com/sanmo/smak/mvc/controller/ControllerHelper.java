@@ -1,9 +1,8 @@
-package com.sanmo.smak.helper.controller;
+package com.sanmo.smak.mvc.controller;
 
 import com.sanmo.smak.annotation.Action;
-import com.sanmo.smak.helper.clazz.ClassHelper;
-import com.sanmo.smak.helper.controller.bean.Handler;
-import com.sanmo.smak.helper.controller.bean.Request;
+import com.sanmo.smak.ioc.ClassHelper;
+import com.sanmo.smak.mvc.pojo.Request;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,17 +1,18 @@
-package com.sanmo.smak.core;
+package com.sanmo.smak.mvc;
 
+import com.sanmo.smak.Loader;
 import com.sanmo.smak.common.CastUtil;
 import com.sanmo.smak.common.CodecUtil;
 import com.sanmo.smak.common.JsonUtil;
 import com.sanmo.smak.common.StreamUtil;
-import com.sanmo.smak.core.bean.Data;
-import com.sanmo.smak.core.bean.Param;
-import com.sanmo.smak.core.bean.View;
-import com.sanmo.smak.helper.bean.BeanHelper;
-import com.sanmo.smak.helper.config.ConfigHelper;
-import com.sanmo.smak.helper.controller.ControllerHelper;
-import com.sanmo.smak.helper.controller.bean.Handler;
-import com.sanmo.smak.helper.reflect.ReflectionUtil;
+import com.sanmo.smak.config.ConfigHelper;
+import com.sanmo.smak.mvc.controller.ControllerHelper;
+import com.sanmo.smak.mvc.pojo.Data;
+import com.sanmo.smak.mvc.pojo.Param;
+import com.sanmo.smak.mvc.pojo.View;
+import com.sanmo.smak.ioc.BeanHelper;
+import com.sanmo.smak.mvc.controller.Handler;
+import com.sanmo.smak.ioc.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,7 @@ public class DispatcherServlet extends HttpServlet {
     /*处理并分发请求*/
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String method = req.getMethod();
         String path = req.getPathInfo();
         logger.debug("request:{},{}",method,path);
@@ -92,7 +94,6 @@ public class DispatcherServlet extends HttpServlet {
         logger.debug("params:{}",params);
         return new Param(params);
     }
-
 
     /*处理响应结果*/
     public void parseResult(HttpServletRequest req,HttpServletResponse resp,Object result) throws IOException, ServletException {

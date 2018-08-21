@@ -3,12 +3,26 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter1" />
+    <file type="web" url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter2" />
+    <file type="web" url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter3" />
+    <file type="web" url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter4" />
+    <file type="web" url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter5" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/example/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/smart-framework/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/chapter5/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-security/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-rest/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-soap/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/chapter4/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/chapter3/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/chapter2/pom.xml" />
+        <option value="$USER_HOME$/Downloads/Compressed/smart-book-code/chapter1/pom.xml" />
       </list>
     </option>
   </component>

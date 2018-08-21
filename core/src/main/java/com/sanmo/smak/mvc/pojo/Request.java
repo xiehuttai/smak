@@ -1,4 +1,4 @@
-package com.sanmo.smak.helper.controller.bean;
+package com.sanmo.smak.mvc.pojo;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

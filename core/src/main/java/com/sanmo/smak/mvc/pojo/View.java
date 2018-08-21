@@ -1,4 +1,4 @@
-package com.sanmo.smak.core.bean;
+package com.sanmo.smak.mvc.pojo;
 
 import java.util.HashMap;
 import java.util.Map;

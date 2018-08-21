@@ -1,6 +1,6 @@
 package com.sanmo.smak.example.dao;
 
-import com.sanmo.smak.example.dao.util.PropertiesUtil;
+import com.sanmo.smak.config.PropertiesUtil;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;

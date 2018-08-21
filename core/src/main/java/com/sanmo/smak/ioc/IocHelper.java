@@ -1,8 +1,6 @@
-package com.sanmo.smak.helper.ioc;
+package com.sanmo.smak.ioc;
 
 import com.sanmo.smak.annotation.Inject;
-import com.sanmo.smak.helper.bean.BeanHelper;
-import com.sanmo.smak.helper.reflect.ReflectionUtil;
 import org.apache.commons.collections4.MapUtils;
 
 import java.lang.reflect.Field;

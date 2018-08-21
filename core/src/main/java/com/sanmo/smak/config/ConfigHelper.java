@@ -1,4 +1,4 @@
-package com.sanmo.smak.helper.config;
+package com.sanmo.smak.config;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,6 +24,11 @@ public class ConfigHelper {
     public static String getJdbcPassword(){
         return CONFIG_PROPS.getProperty(ConfigConstant.JDBC_PASSWORD);
     }
+
+    public static String getConfig(String key){
+        return CONFIG_PROPS.getProperty(key);
+    }
+
 
     /*获取应用相关配置*/
     public static String getJspPath(){

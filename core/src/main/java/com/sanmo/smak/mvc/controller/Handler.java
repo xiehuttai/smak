@@ -1,4 +1,4 @@
-package com.sanmo.smak.helper.controller.bean;
+package com.sanmo.smak.mvc.controller;
 
 import java.lang.reflect.Method;
 

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter1" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter2" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter3" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter4" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/chapter5" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/smart-framework" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-rest" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-security" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/Compressed/smart-book-code/smart-plugin-soap" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/example" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/example" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/example-samk" charset="UTF-8" />
   </component>
 </project>

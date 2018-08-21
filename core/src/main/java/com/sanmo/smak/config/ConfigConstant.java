@@ -1,4 +1,4 @@
-package com.sanmo.smak.helper.config;
+package com.sanmo.smak.config;
 
 
 /* 1 config */

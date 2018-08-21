@@ -3,8 +3,8 @@ package com.sanmo.smak.example.controller;
 import com.sanmo.smak.annotation.Action;
 import com.sanmo.smak.annotation.Controller;
 import com.sanmo.smak.annotation.Inject;
-import com.sanmo.smak.core.bean.Param;
-import com.sanmo.smak.core.bean.View;
+import com.sanmo.smak.mvc.pojo.Param;
+import com.sanmo.smak.mvc.pojo.View;
 import com.sanmo.smak.example.model.Customer;
 import com.sanmo.smak.example.service.CustomerService;
 
@@ -19,6 +19,9 @@ public class CustomerController {
 
     @Action("get:/customer")
     public View toCustomerList(Param param){
+        if (customerService==null){
+            System.out.println("---------------------------------------------");
+        }
         List<Customer> customerList = customerService.getCustomerList();
         return new View("customer.jsp").addModel("customers",customerList);
     }

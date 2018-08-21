@@ -31,6 +31,4 @@ public class CustomerService {
     public boolean deleteCustomer(long id){
        return customerDao.deleteCustomer(id);
     }
-
-
 }

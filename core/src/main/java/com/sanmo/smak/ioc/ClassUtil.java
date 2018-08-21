@@ -1,4 +1,4 @@
-package com.sanmo.smak.helper.clazz;
+package com.sanmo.smak.ioc;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

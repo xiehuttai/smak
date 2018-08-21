@@ -1,7 +1,4 @@
-package com.sanmo.smak.helper.bean;
-
-import com.sanmo.smak.helper.clazz.ClassHelper;
-import com.sanmo.smak.helper.reflect.ReflectionUtil;
+package com.sanmo.smak.ioc;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +25,15 @@ public class BeanHelper {
         if (!BEAN_MAP.containsKey(cls))
             throw new RuntimeException("can not get bean by class : "+ cls);
         return (T)BEAN_MAP.get(cls);
+    }
+
+    /**
+     * 设置bean实例
+     * @param cls
+     * @param obj
+     */
+    public static void setBean(Class<?> cls,Object obj ){
+        BEAN_MAP.put(cls,obj);
     }
 
 }
