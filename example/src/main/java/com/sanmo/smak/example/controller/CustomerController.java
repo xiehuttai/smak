@@ -18,10 +18,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Action("get:/customer")
-    public View toCustomerList(Param param){
-        if (customerService==null){
-            System.out.println("---------------------------------------------");
-        }
+    public View toCustomerList(){
         List<Customer> customerList = customerService.getCustomerList();
         return new View("customer.jsp").addModel("customers",customerList);
     }

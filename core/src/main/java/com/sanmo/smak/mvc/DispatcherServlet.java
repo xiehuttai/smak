@@ -63,7 +63,11 @@ public class DispatcherServlet extends HttpServlet {
             /*解析请求*/
             Param param = parseParam(req);
             Method actionMethod = handler.getActionMethod();
-            Object result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+            Object result = null;
+            if(param.getParamMap().size()==0)
+                result =  ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+            else
+                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
             /*解析结果*/
             parseResult(req,resp,result);
         }else {
