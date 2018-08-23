@@ -24,7 +24,7 @@ public class CustomerController {
     }
 
     @Action("get:/customer_create")
-    public View toCustomeCreate(Param param){
+    public View toCustomeCreate(){
         return new View("customer_create.jsp");
     }
 

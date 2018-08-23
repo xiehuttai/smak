@@ -32,7 +32,7 @@ public class ReflectionUtil {
     /*调用方法*/
     public static Object invokeMethod(Object obj, Method method,Object...args){
         Object result=null;
-            method.setAccessible(true);
+        method.setAccessible(true);
         try {
             result= method.invoke(obj,args);
         } catch (IllegalAccessException e) {
@@ -42,6 +42,7 @@ public class ReflectionUtil {
         }
         return result;
     }
+
 
     /*设置域的值*/
     public static void setField(Object obj, Field field,Object value){
