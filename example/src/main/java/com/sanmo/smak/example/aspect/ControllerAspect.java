@@ -9,14 +9,18 @@ import java.lang.reflect.Method;
 @Aspect(Controller.class)
 public class ControllerAspect extends AspectProxy {
 
+    private long begin=0L;
+
     @Override
     public void before(Class<?> cls, Method method, Object[] params) {
+        begin = System.currentTimeMillis();
         System.out.println("before");
     }
 
     @Override
     public void end(Class<?> cls, Method method, Object[] params) {
         System.out.println("end");
+        System.out.println("invoke duration : "+(System.currentTimeMillis()-begin)+ " ms");
     }
 
     @Override

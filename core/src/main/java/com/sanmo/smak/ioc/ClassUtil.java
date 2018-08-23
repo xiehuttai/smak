@@ -39,6 +39,9 @@ public class ClassUtil {
     public static Class<?> loadClass(String className ){
         Class<?> cls;
         try {
+            /**
+             * Class.forName 选择 执行静态代码块
+             */
             cls=Class.forName(className,true,getClassLoader());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

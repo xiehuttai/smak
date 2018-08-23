@@ -7,7 +7,7 @@ import com.sanmo.smak.ioc.ClassUtil;
 import com.sanmo.smak.mvc.controller.ControllerHelper;
 import com.sanmo.smak.ioc.IocHelper;
 
-/*7 加载相应helper*/
+/*7 加载相应helper,载入顺序重要*/
 public final class Loader {
 
     public static void  init(){
@@ -20,6 +20,5 @@ public final class Loader {
         };
         for (Class<?> cls: classList)
             ClassUtil.loadClass(cls.getName());
-
     }
 }

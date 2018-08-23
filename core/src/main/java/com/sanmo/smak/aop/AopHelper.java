@@ -1,8 +1,11 @@
 package com.sanmo.smak.aop;
 
+import com.sanmo.smak.annotation.Service;
 import com.sanmo.smak.annotation.aop.Aspect;
+import com.sanmo.smak.annotation.transaction.Transaction;
 import com.sanmo.smak.ioc.BeanHelper;
 import com.sanmo.smak.ioc.ClassHelper;
+import com.sanmo.smak.orm.TransactionProxy;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
@@ -46,6 +49,12 @@ public final class AopHelper {
      */
     private static Map<Class<?>,Set<Class<?>>> createProxyMap(){
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
+        addAspectProxy(proxyMap);
+        addTransactionProxy(proxyMap);
+        return proxyMap;
+    }
+
+    public static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
         Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper((AspectProxy.class));
         for (Class<?> proxyClass: proxyClassSet){
             if(proxyClass.isAnnotationPresent(Aspect.class)){
@@ -54,7 +63,11 @@ public final class AopHelper {
                 proxyMap.put(proxyClass,targetClassSet);
             }
         }
-        return proxyMap;
+    }
+
+    public static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
+        Set<Class<?>> classSetByAnnotation = ClassHelper.getClassSetByAnnotation(Service.class);
+        proxyMap.put(TransactionProxy.class,classSetByAnnotation);
     }
 
     /**
@@ -88,5 +101,8 @@ public final class AopHelper {
         }
         return targetMap;
     }
+
+
+
 
 }
